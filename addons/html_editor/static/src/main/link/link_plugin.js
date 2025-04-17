@@ -234,8 +234,15 @@ export class LinkPlugin extends Plugin {
         this.removeLinkShortcut = this.services.command.add(
             "Create link",
             () => {
-                this.toggleLinkTools();
-                this.dependencies.selection.focusEditable();
+                // To avoid a race condition between the events spawn by :
+                // 1. the `focus editable` and
+                // 2. the odoo `Shortcut bar` closure
+                // Which can affect the link overlay opening sequence if we keep it in sync.
+                // Therefore we need to wait for the next tick before triggering openLinkTools.
+                setTimeout(() => {
+                    this.toggleLinkTools();
+                    this.dependencies.selection.focusEditable();
+                });
             },
             {
                 hotkey: "control+k",
@@ -658,12 +665,34 @@ export class LinkPlugin extends Plugin {
     }
 
     onBeforeInput(ev) {
-        if (
-            ev.inputType === "insertParagraph" ||
-            ev.inputType === "insertLineBreak" ||
-            (ev.inputType === "insertText" && ev.data === " ")
-        ) {
-            this.handleAutomaticLinkInsertion();
+        if (ev.inputType === "insertParagraph" || ev.inputType === "insertLineBreak") {
+            const nodeForSelectionRestore = this.handleAutomaticLinkInsertion();
+            if (nodeForSelectionRestore) {
+                this.dependencies.selection.setCursorStart(nodeForSelectionRestore);
+                this.dependencies.history.addStep();
+            }
+        }
+        if (ev.inputType === "insertText" && ev.data === " ") {
+            const nodeForSelectionRestore = this.handleAutomaticLinkInsertion();
+            if (nodeForSelectionRestore) {
+                // Since we manually insert a space here, we will be adding a history step
+                // after link creation with selection at the end of the link and another
+                // after inserting the space. So first undo will remove the space, and the
+                // second will undo the link creation.
+                this.dependencies.selection.setSelection({
+                    anchorNode: nodeForSelectionRestore,
+                    anchorOffset: 0,
+                });
+                this.dependencies.history.addStep();
+                nodeForSelectionRestore.textContent =
+                    "\u00A0" + nodeForSelectionRestore.textContent;
+                this.dependencies.selection.setSelection({
+                    anchorNode: nodeForSelectionRestore,
+                    anchorOffset: 1,
+                });
+                this.dependencies.history.addStep();
+                ev.preventDefault();
+            }
         }
     }
     /**
@@ -701,8 +730,7 @@ export class LinkPlugin extends Plugin {
                 const textNodeToReplace = selection.anchorNode.splitText(startOffset);
                 textNodeToReplace.splitText(match[0].length);
                 selection.anchorNode.parentElement.replaceChild(link, textNodeToReplace);
-                this.dependencies.selection.setCursorStart(nodeForSelectionRestore);
-                this.dependencies.history.addStep();
+                return nodeForSelectionRestore;
             }
         }
     }
