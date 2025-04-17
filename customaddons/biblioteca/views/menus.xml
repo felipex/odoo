@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ========== MENUS ========== -->
+    <menuitem id="menu_principal" name="BibliotecaX" sequence="10"/>
+    
+    <!-- Submenu único "Cadastro" -->
+    <menuitem id="submenu_cadastro" name="Cadastro" parent="menu_principal"/>
+    <menuitem id="submenu_cadastro2" name="outro Cadastro" parent="menu_principal" action="action_autor"/>
+    
+    <!-- Opções dentro do submenu Cadastro -->
+    <menuitem id="menu_autor" 
+              name="Lista de Autores" 
+              parent="submenu_cadastro" 
+              action="action_autor"
+              sequence="10"/>
+              
+    <menuitem id="menu_editora" 
+              name="Lista de Editoras" 
+              parent="submenu_cadastro" 
+              action="action_editora"
+              sequence="20"/>
+
+    <menuitem id="menu_livro" 
+              name="Lista de Livros" 
+              parent="submenu_cadastro" 
+              action="action_livro"
+              sequence="30"/>
+
+    <menuitem id="menu_usuario" 
+              name="Lista de Usuários" 
+              parent="submenu_cadastro" 
+              action="action_usuario"
+              sequence="40"/>
+
+    <menuitem id="menu_exemplare" 
+              name="Lista de Exemplar" 
+              parent="submenu_cadastro" 
+              action="action_exemplar"
+              sequence="50"/>
+
+</odoo>

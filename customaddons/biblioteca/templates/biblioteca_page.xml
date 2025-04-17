@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="pagina_template" name="Página da Biblioteca">
+        <t t-call="website.loayut">
+            <div class="container mt-4">
+                <h1>Biblioteca</h1>
+                
+                <h2>Autores</h2>
+                <ul>
+                    <t t-foreach="autores" t-as="autor">
+                        <li><t t-esc="autor.name"/></li>
+                    </t>
+                </ul>
+
+                <h2>Editoras</h2>
+                <ul>
+                    <t t-foreach="editoras" t-as="editora">
+                        <li>
+                            <t t-esc="editora.name"/> - 
+                            <t t-esc="editora.cidade"/>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </t>
+    </template>
+</odoo>

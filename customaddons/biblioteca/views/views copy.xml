@@ -1,0 +1,90 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="biblioteca.list">
+      <field name="name">biblioteca list</field>
+      <field name="model">biblioteca.autor</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="name"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="biblioteca.action_window">
+      <field name="name">Autor window</field>
+      <field name="res_model">biblioteca.autor</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+    <record model="ir.actions.server" id="biblioteca.action_server">
+      <field name="name">Autores</field>
+      <field name="model_id" ref="biblioteca.model_biblioteca_autor"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+<!-- Editoras -->
+
+    <record model="ir.ui.view" id="biblioteca.list">
+      <field name="name">editora list</field>
+      <field name="model">biblioteca.editora</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="cidade"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="biblioteca.action_window">
+      <field name="name">Editora window</field>
+      <field name="res_model">biblioteca.editora</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <record model="ir.actions.server" id="biblioteca.action_server">
+      <field name="name">Editoras</field>
+      <field name="model_id" ref="biblioteca.model_biblioteca_editora"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>    
+
+    <!-- Top menu item -->
+
+    <menuitem name="Bibliotecax" id="biblioteca.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu 1" id="biblioteca.menu_1" parent="biblioteca.menu_root"/>
+    <menuitem name="Cadastros" id="biblioteca.menu_2" parent="biblioteca.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="biblioteca.menu_1_list" parent="biblioteca.menu_1"
+              action="biblioteca.action_window"/>
+    <menuitem name="Autores" id="autores" parent="biblioteca.menu_2"
+              action="biblioteca.action_server"/>
+    <menuitem name="Editoras" id="editoras" parent="biblioteca.menu_2"
+              action="biblioteca.action_server"/>
+
+  </data>
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ========== AUTOR ========== -->
+    <record id="view_autor_form" model="ir.ui.view">
+<!--        <field name="name">biblioteca.autor.form</field>-->
+        <field name="model">biblioteca.autor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" string="Nome do Autor"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_autor_tree" model="ir.ui.view">
+        <field name="name">biblioteca.autor.tree</field>
+        <field name="model">biblioteca.autor</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" string="Autor"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_autor" model="ir.actions.act_window">
+        <field name="name">Autores</field>
+        <field name="res_model">biblioteca.autor</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ========== EDITORA ========== -->
+    <record id="view_editora_form" model="ir.ui.view">
+        <field name="name">biblioteca.editora.form</field>
+        <field name="model">biblioteca.editora</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" string="Nome da Editora"/>
+                        <field name="cidade" string="Cidade"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_editora_tree" model="ir.ui.view">
+        <field name="name">biblioteca.editora.tree</field>
+        <field name="model">biblioteca.editora</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" string="Editora"/>
+                <field name="cidade" string="Cidade"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_editora" model="ir.actions.act_window">
+        <field name="name">Editoras</field>
+        <field name="res_model">biblioteca.editora</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ========== LIVRO ========== -->
+    <record id="view_livro_form" model="ir.ui.view">
+        <field name="name">biblioteca.livro.form</field>
+        <field name="model">biblioteca.livro</field>
+        <field name="arch" type="xml">
+            <form>
+              <notebook>
+                <page string="Geral">
+                    <group>
+                        <field name="titulo" string="Título"/>
+                        <field name="autor" string="Autor"/>
+                    </group>
+                    <group>
+                        <field name="edicao" string="Edição"/>
+                        <field name="editora" string="Editora"/>
+                    </group>
+                </page>
+                  
+                  <page string="Sinopse">
+                  <group>
+                    <field name="sinopse" string="Sinopse" />
+                    </group>
+                  </page>
+              </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_livro_list" model="ir.ui.view">
+        <field name="name">biblioteca.livro.list</field>
+        <field name="model">biblioteca.livro</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="titulo" string="Título"/>
+                <field name="edicao" string="Edição"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_livro" model="ir.actions.act_window">
+        <field name="name">Livros</field>
+        <field name="res_model">biblioteca.livro</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- ========== MENUS ========== -->
+    <menuitem id="menu_principal" name="Biblioteca" sequence="10"/>
+    
+    <!-- Submenu único "Cadastro" -->
+    <menuitem id="submenu_cadastro" name="Cadastro" parent="menu_principal"/>
+    <menuitem id="submenu_cadastro2" name="outro Cadastro" parent="menu_principal" action="action_autor"/>
+    
+    <!-- Opções dentro do submenu Cadastro -->
+    <menuitem id="menu_autores" 
+              name="Lista de Autores" 
+              parent="submenu_cadastro" 
+              action="action_autor"
+              sequence="10"/>
+              
+    <menuitem id="menu_editoras" 
+              name="Lista de Editoras" 
+              parent="submenu_cadastro" 
+              action="action_editora"
+              sequence="20"/>
+
+    <menuitem id="menu_livros" 
+              name="Lista de Livros" 
+              parent="submenu_cadastro" 
+              action="action_livro"
+              sequence="30"/>
+
+</odoo>
