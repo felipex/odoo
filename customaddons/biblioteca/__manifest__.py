@@ -30,6 +30,8 @@ Gerenciamento de livros de uma biblioteca e empréstimos de exemplares dos livro
         'views/exemplar.xml',
         'views/menus.xml',
         'views/templates.xml',
+        'views/dashboard.xml',
+
         'templates/biblioteca_page.xml',
         'security/ir.model.access.csv',
     ],

@@ -1,0 +1,15 @@
+<!-- Arquivo: security/library_security.xml -->
+<odoo>
+    <!-- Grupo de Segurança 'Bibliotecário' -->
+    <record id="group_library_manager" model="res.groups">
+        <field name="name">Bibliotecário</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/> <!-- Atribui ao Admin -->
+    </record>
+
+    <!-- Restrição de Menu -->
+    <record id="menu_library_management" model="ir.ui.menu">
+        <field name="name">Biblioteca</field>
+        <field name="groups_id" eval="[(6, 0, [ref('group_library_manager')])]"/>
+    </record>
+</odoo>
