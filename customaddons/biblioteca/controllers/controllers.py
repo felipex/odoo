@@ -26,6 +26,40 @@ import json
 from odoo.http import Response, Request
 
 
+from odoo import SUPERUSER_ID
+from odoo.exceptions import ValidationError as VE
+from odoo.http import db_list
+def ___authenticate(func):
+    #@wraps(func)
+    def validate_api_key(*args, **kw):
+        auth_error = messages.get('access')
+        key = request.httprequest.headers.get('api-key')
+        if not key:
+            raise VE(auth_error)
+
+        if not request.session.db:
+            request.session.db = db_list()[0]  # here we pick the first available db if the instance is a multi db and db_name has not been set in the odoo.conf
+
+        uid = request.env['res.users.apikeys'].with_user(SUPERUSER_ID)._check_credentials(scope='rpc', key=key)
+
+        if not uid:
+            logger.error(f"{func.__name__} auth_error['message']")
+            raise VE(auth_error)
+
+        request.update_env(user=uid)  # here we switch the user to the one owning this key
+        return func(*args, **kw)
+
+    return validate_api_key
+
+def xauthenticate(func):
+
+    def validate_api_key(*args, **kw):
+        key = request.httprequest.headers.get('api-key')
+        print("----------------', key, '-----------------------")
+        return func(*args, **kw)
+
+    return validate_api_key
+
 class BibliotecaController(http.Controller):
 
     @http.route('/biblioteca/biblioteca', auth='public')
@@ -59,8 +93,10 @@ class BibliotecaController(http.Controller):
             )
 
     @http.route('/biblioteca/dados', type='http', auth='public', methods=['GET'], csrf=False)
+    #@xauthenticate
     def listar_dados(self):
         autores = request.env['biblioteca.autor'].search_read([], ['id', 'name'])
+        
         return Response(
             json.dumps(autores, ensure_ascii=False),
             content_type='application/json; charset=utf-8'
