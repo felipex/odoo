@@ -95,6 +95,10 @@ class BibliotecaController(http.Controller):
     @http.route('/biblioteca/dados', type='http', auth='public', methods=['GET'], csrf=False)
     #@xauthenticate
     def listar_dados(self):
+        from ..models.autor import Autor
+
+        #autores = self.env['biblioteca.autor'].search_read([], ['id', 'name'])
+        #print("------ Deu certo -----")
         autores = request.env['biblioteca.autor'].search_read([], ['id', 'name'])
         
         return Response(
@@ -102,32 +106,17 @@ class BibliotecaController(http.Controller):
             content_type='application/json; charset=utf-8'
         )
 
-    # Rota para listar autores e editoras em JSON
-    #@http.route('/biblioteca/dados', type='json', auth='public')
-    #@http.route('/biblioteca/dados', auth='public')
-    def _listar_dados(self):
-
-        #autores = request.env['biblioteca.autor'].search([])
-        #editoras = request.env['biblioteca.editora'].search([])
+    @http.route('/biblioteca/dados', type='http', auth='public', methods=['GET'], csrf=False)
+    #@xauthenticate
+    def listar_dados_ok(self):
+        autores = request.env['biblioteca.autor'].search_read([], ['id', 'name'])
         
-        autores = [{'id': 1, 'nome': 'José de Alencar' }, {'id': 2, 'nome': 'Horge Amada' }]
         return Response(
-            json.dumps({"mensagem": "Olá, mundo!"}),
-            content_type="application/json;  charset=utf-8",
-            status=200
+            json.dumps(autores, ensure_ascii=False),
+            content_type='application/json; charset=utf-8'
         )
-        #responseX = http.Request(self))
-        
-        #return {
-        #    'autores': [{'id': a.id, 'nome': a.name} for a in autores],
-        #    'editoras': [{'id': e.id, 'nome': e.name, 'cidade': e.cidade} for e in editoras]
-        #}
 
-        #order = request.env[res_model].browse(order_id)
-        #return order.with_company(order.company_id)._update_order_line_info(
-        #    product_id, quantity, **kwargs,
-        #)
-
+   
     # Rota para exibir uma página HTML
     @http.route('/biblioteca/pagina', type='http', auth='public', website=True)
     def pagina_biblioteca(self):
