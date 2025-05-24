@@ -17,13 +17,27 @@ from odoo import models, fields, api
 #         for record in self:
 #             record.value2 = float(record.value) / 100
 
-class fabrica2(models.Model):
-    _name = 'fabrica2.employee'
-    _description = "Fabrica2 Employee"
+class WOEmployee(models.Model):
+    _name = 'fabrica2.woemployee'
+    _description = "Fabrica2 WO-Employee"
     _order = 'name'
-    _inherit = 'hr.employee'
+    _rec_name = 'name'
 
-    new_field = fields.Char(string="New Field")
+    employee = fields.Many2one('hr.employee')
+    workorder = fields.Many2one('mrp.workorder')
+
+    name = fields.Char(compute='_get_name', store=True)
+    @api.depends('employee', 'workorder')
+    def _get_name(self):
+        for record in self:
+            record.name = f'{record.employee.name} - ({record.workorder.name})'    
+
+
+    state = fields.Char(compute='_get_state')
+    @api.depends('workorder')
+    def _get_state(self):
+        for record in self:
+            record.state = record.workorder.state   
 
 #     @api.depends('value')
 #     def _value_pc(self):
