@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="pagina_mrp" name="Página da MRP">
+    <h1>MRP</h1>
+    <div>
+                <h2>Orden de Produção</h2>
+                <ul>
+                    <t t-foreach="objects" t-as="obj">
+                        <li><t t-out="obj.employee.name"/> - <t t-out="obj.workorder.name"/> </li>
+                    </t>
+                </ul>
+</div>
+    </template>
+</odoo>

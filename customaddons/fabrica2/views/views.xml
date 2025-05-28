@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- ========== EXEMPLAR ========== -->
+
     <record id="view_woemployee_form" model="ir.ui.view">
         <field name="name">fabrica2.woemployee.form</field>
         <field name="model">fabrica2.woemployee</field>
@@ -25,7 +25,7 @@
                     widget="badge" 
                     decoration-warning="state == 'progress'" 
                     decoration-success="state == 'done'" 
-                    decoration-danger="state == 'cancel'" 
+                    decoration-danger="state in ('cancel', 'blocked')" 
                     decoration-info="state not in ('progress', 'done', 'cancel')"
                     />
 
@@ -34,6 +34,7 @@
             </list>
         </field>
     </record>
+
 
 
     <record id="action_woemployee" model="ir.actions.act_window">

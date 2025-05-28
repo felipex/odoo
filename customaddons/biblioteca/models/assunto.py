@@ -8,3 +8,4 @@ class Assunto(models.Model):
 
     name = fields.Char()
 
+

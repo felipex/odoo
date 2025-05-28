@@ -3,14 +3,14 @@
 <odoo>
 
     <!-- ========== MENUS ========== -->
-    <menuitem id="main_menu" name="Fabricação-2" sequence="10"/>
+    <menuitem id="main_menu" name="Fabricacao-2" sequence="10"/>
     
     <!-- Submenu único "Cadastro" -->
-    <menuitem id="submenu_wo" name="Ordens de Trabalho" parent="main_menu"/>
+    <menuitem id="submenu_wo" name="Ordens_de_Trabalho" parent="main_menu"/>
     
     <!-- Opções dentro do submenu Cadastro -->
     <menuitem id="menu_woe" 
-              name="Ordens de trabalho" 
+              name="Ordens_de_trabalho" 
               action="action_woemployee"
               sequence="20"
               parent="main_menu"

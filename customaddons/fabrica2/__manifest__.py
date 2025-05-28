@@ -26,6 +26,7 @@ Personaliziação do MRP
         'views/views.xml',
         'views/menus.xml',
         'views/templates.xml',
+        'templates/listing.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
