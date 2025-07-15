@@ -1,0 +1,151 @@
+<odoo>
+  <data>
+  <record model="ir.ui.view" id="fabrica4.view_workorder_form">
+    <field name="name">fabrica4.view_workorder_form</field>
+    <field name="model">fabrica4.employee_workorder</field>
+    <field name="arch" type="xml">
+      <form>
+      <sheet>
+      <group>
+        <field name="employee_id" string="Funcionário"/>
+        <field name="workorder_id" string="Ordem de Trabalho"/>
+        <field name="planned_start_date" string="Data de Início Planejada"/>
+        <field name="start_date" string="Data de Início"/>
+        <field name="end_date" string="Data de Término"/>
+      </group>
+      </sheet>
+      </form>
+    </field>
+  </record> 
+
+  <record model="ir.ui.view" id="fabrica4.view_workorder_list">
+    <field name="name">fabrica4.view_workorder_list</field>
+    <field name="model">fabrica4.employee_workorder</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="employee_id" string="Funcionário"/>
+        <field name="workorder_id" string="Ordem de Trabalho"/>
+        <field name="workcenter_id" string="Centro de Trabalho"/>
+        <field name="planned_start_date" string="Data de Início Planejada"/>
+        <field name="start_date" string="Data de Início"/>
+        <field name="end_date" string="Data de Término"/>
+      </list>
+    </field>
+  </record> 
+
+  <record model="ir.actions.act_window" id="fabrica4.action_workorder">
+    <field name="name">fabrica4.action_workorder</field>
+    <field name="res_model">fabrica4.employee_workorder</field>
+    <field name="view_mode">list,form</field>
+  </record> 
+<!-- -->
+
+<record model="ir.ui.view" id="fabrica4.view_workorder2_list">
+    <field name="name">fabrica4.workorder.tree.inherit</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_view"/> 
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='workcenter_id']" position="before">
+            <field name="employee_name" string="Atribuída a"/>
+            <field name="assigned"/>
+            <field name="production_id" string="Ordem de Produção"/>
+        </xpath>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="fabrica4.view_workorder2_form">
+    <field name="name">fabrica4.workorder.form.inherit</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/> 
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='workcenter_id']" position="before">
+            <field name="employee_name" string="Atribuída a"/>  
+        </xpath>
+    </field>
+</record>
+
+
+  <record model="ir.actions.act_window" id="fabrica4.action_workorder2">
+    <field name="name">fabrica4.action_workorder2</field>
+    <field name="res_model">mrp.workorder</field>
+    <field name="view_mode">list,form</field>
+  </record> 
+
+    <!-- ========== MENUS ========== -->
+    <menuitem id="main_menu" name="Fabricacao-4" sequence="10"/>
+    
+    <!-- Submenu único "Cadastro" -->
+    <menuitem id="submenu_wo" name="Ordens_de_Trabalho4" parent="main_menu"/>
+    
+    <!-- Opções dentro do submenu Cadastro -->
+    <menuitem id="menu_woe" 
+              name="Ordens_de_trabalho" 
+              action="fabrica4.action_workorder"
+              sequence="20"
+              parent="main_menu"
+              />
+    <menuitem id="menu_woex" 
+              name="Ordens de trabalho X" 
+              action="fabrica4.action_workorder2"
+              sequence="30"
+              parent="main_menu"
+              />
+
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="fabrica4.list">
+      <field name="name">fabrica4 list</field>
+      <field name="model">fabrica4.fabrica4</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </list>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="fabrica4.action_window">
+      <field name="name">fabrica4 window</field>
+      <field name="res_model">fabrica4.fabrica4</field>
+      <field name="view_mode">list,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="fabrica4.action_server">
+      <field name="name">fabrica4 server</field>
+      <field name="model_id" ref="model_fabrica4_fabrica4"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="fabrica4" id="fabrica4.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="fabrica4.menu_1" parent="fabrica4.menu_root"/>
+    <menuitem name="Menu 2" id="fabrica4.menu_2" parent="fabrica4.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="fabrica4.menu_1_list" parent="fabrica4.menu_1"
+              action="fabrica4.action_window"/>
+    <menuitem name="Server to list" id="fabrica4" parent="fabrica4.menu_2"
+              action="fabrica4.action_server"/>
+-->
+  </data>
+</odoo>

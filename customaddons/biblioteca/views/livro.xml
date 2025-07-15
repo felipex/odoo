@@ -10,14 +10,14 @@
                 <page string="Geral">
                     <group>
                         <field name="titulo" string="Título"/>
-                        <field name="autor" string="Autor"/>
                     </group>
                     <group>
                         <field name="edicao" string="Edição"/>
                         <field name="editora" string="Editora"/>
                     </group>
                     <group>
-                        <field name="assunto_ids" string="Assuntos"/>
+                        <field name="autor_ids" string="Autor"/>
+                        <field name="assunto_ids" string="Assuntos" widget="many2many_tags"/>
                     </group>
 
                 </page>
@@ -52,7 +52,7 @@
                        <div style="font-weight: bold">
                            <field name="titulo"/>
                     </div>
-                    <field name="autor"/>
+                    <field name="autor_ids"/>
                     <field name="edicao_str" />
                     <div>
                         <span>#Exemplares: </span>

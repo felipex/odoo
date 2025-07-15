@@ -10,7 +10,7 @@ class Livro(models.Model):
     titulo = fields.Char()
     edicao = fields.Integer(default=1)
     sinopse = fields.Text()
-    autor = fields.Many2one('biblioteca.autor', string='Autor')
+    autor_ids = fields.Many2many('biblioteca.autor', string='Autor')
     editora = fields.Many2one('biblioteca.editora', string='Editora')
     assunto_ids = fields.Many2many('biblioteca.assunto', string='Assunto')
 
@@ -20,10 +20,10 @@ class Livro(models.Model):
     nome = fields.Char(compute='_get_nome')
     exemplares_count = fields.Integer(compute='_get_exemplares_count')
 
-    @api.depends('titulo', 'autor')
+    @api.depends('titulo')
     def _get_nome(self):
         for record in self:
-            record.nome = f'{record.titulo} - ({record.autor.name})'
+            record.nome = f'{record.titulo}'
 
     @api.depends('edicao')
     def _compute_edicao(self):

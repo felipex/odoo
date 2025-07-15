@@ -1,0 +1,40 @@
+MRPX Module Installation Notes
+==============================
+
+## Pre-Installation Checklist
+- [ ] Odoo 16.0+ environment ready
+- [ ] MRP module installed and configured
+- [ ] HR module installed with employee records
+- [ ] Backup database before installation
+
+## Installation Process
+1. Copy mrpx_module folder to Odoo addons directory
+2. Restart Odoo server or update addons list
+3. Go to Apps menu in Odoo
+4. Search for "MRPX" or "Material Requirements Planning Extended"
+5. Click Install
+
+## Post-Installation Setup
+1. Check Manufacturing menu for new MRPX submenu
+2. Verify user permissions in Settings → Users & Companies
+3. Test workorder assignment functionality
+4. Configure employee access as needed
+
+## Quick Test Procedure
+1. Create a manufacturing order
+2. Go to MRPX → Workorder Assignment
+3. Assign an employee to a workorder
+4. Start and finish the workorder
+5. Verify timing data is recorded
+
+## Configuration Options
+- User Groups: Configure access levels for different user types
+- Menu Visibility: Customize which menus appear for different roles
+- Field Visibility: Adjust which fields are shown in views
+
+## Troubleshooting
+- If menu items don't appear: Check user permissions
+- If assignment fails: Verify employee records exist
+- If timing doesn't work: Check datetime field configurations
+
+For support, refer to README.md or contact the development team.

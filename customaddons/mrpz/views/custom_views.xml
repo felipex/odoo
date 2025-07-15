@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        
+<template id="custom_form_no_model" name="Formulário Dinâmico">
+        <form action="/custom_form" method="post">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>            
+            <div>
+                <h2><t t-out="dynamic_text" /></h2>
+                <h2>Funcionário</h2>
+                    <div class="mb-3">
+                        <label for="employee" name="employee" class="form-label">Funcionário:</label>
+                        <select class="form-select" id="employee">
+                            <t t-foreach="employees" t-as="employee">
+                                <option t-att-value="employee.id" t-esc="employee.name"/>
+                            </t>
+                        </select>
+                    </div>
+                    <h2>Ordem de Serviço</h2>
+                    <div class="mb-3">
+                        <label for="workorder" name="workorder" class="form-label">Ordem de Serviço:</label>
+                        <select class="form-select" id="campo_select">
+                            <t t-foreach="workorders" t-as="workorder">
+                                <option t-att-value="workorder.id" t-esc="workorder.name"/>
+                            </t>
+                        </select>
+                    </div>
+            </div>
+        
+    
+            
+            <button type="submit" class="btn btn-primary">Botão 1 </button>
+            <button type="button" class="btn btn-secondary ms-2">Botão 2</button>
+            </form>
+</template>
+</odoo>

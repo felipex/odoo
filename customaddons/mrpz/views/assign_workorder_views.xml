@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <record id="assign_employee_wizard_form" model="ir.ui.view">
+            <field name="name">assign.employee.wizard.form</field>
+            <field name="model">assign.employee.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Selecionar Funcionário">
+                    <group>
+                        <field name="employee_id"/>
+                    </group>
+                    <footer>
+                        <button name="action_assign_employee" string="Atribuir" type="object" class="oe_highlight"/>
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="assign_employee_wizard_kanban_inherit" model="ir.ui.view">
+            <field name="name">assign.employee.wizard.kanban</field>
+            <field name="model">assign.employee.wizard</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <h5><field name="employee_id"/></h5>
+                               
+                            <div style="font-style: itali·c">
+                                <field name="workorder_ids"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

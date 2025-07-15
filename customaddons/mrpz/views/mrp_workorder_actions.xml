@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="mrp_workorder_bulk_action" model="ir.actions.server">
+            <field name="name">Sua Ação em Lote</field>
+            <field name="model_id" ref="mrp.model_mrp_workorder"/>
+            <field name="binding_model_id" ref="mrp.model_mrp_workorder"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    for record in records:
+                        record.assign_employee(record.employee_id)
+                
+            </field>
+        </record>
+        
+        <record id="mrpz.action_mrp_workorder" model="ir.actions.act_window">
+            <field name="name">Ordens de Produção (MRPZ)</field>
+            <field name="res_model">assign.employee.wizard</field>
+            <field name="view_mode">kanban,list,form</field>
+            
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crie sua primeira ordem de produção!
+                </p>
+            </field>
+        </record>  
+        
+        
+    </data>
+</odoo>

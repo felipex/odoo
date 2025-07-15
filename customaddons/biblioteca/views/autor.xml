@@ -9,7 +9,6 @@
                 <sheet>
                     <group>
                         <field name="name" string="Nome do Autor"/>
-                        <field name="livros_ids" string="Livros do Autor (Lista)"/>
                     </group>
                 </sheet>
             </form>

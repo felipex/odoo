@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <menuitem id="main_menu" name="MRPZ" sequence="10"/>
+    
+   <menuitem id="menu_mrpz" 
+              name="Work Orders" 
+              parent="main_menu" 
+              action="mrpz.action_mrp_workorder"
+              sequence="10"/>
+   
+   <menuitem id="menu_mrpz_workorder" 
+              name="Work Orders Wizard" 
+              parent="main_menu" 
+              action="mrpz.action_mrp_workorder"
+              sequence="20"/>
+              
+              
+</odoo>

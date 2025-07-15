@@ -11,7 +11,7 @@ class Exemplar(models.Model):
     numero = fields.Integer()
     livro = fields.Many2one('biblioteca.livro', string='Livro')
     titulo_display = fields.Char(related='livro.titulo')
-    autor_display = fields.Char(related='livro.autor.name')
+    autor_display = fields.Char(related='livro.autor_ids.name')
 
     nome = fields.Char(compute='_get_nome')
     numero_str = fields.Char(compute='_get_numero')

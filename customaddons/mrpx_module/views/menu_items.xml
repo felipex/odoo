@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main MRPX Menu -->
+    <menuitem id="menu_mrpx_main" 
+              name="MRPX" 
+              parent="mrp.menu_mrp_root" 
+              sequence="50"/>
+
+    <!-- Workorder Assignment Submenu -->
+    <menuitem id="menu_mrpx_workorder_assignment" 
+              name="Workorder Assignment" 
+              parent="menu_mrpx_main" 
+              action="action_mrp_workorder_assignment" 
+              sequence="10"/>
+
+    <!-- Enhanced Workorders Menu -->
+    <menuitem id="menu_mrpx_workorders_enhanced" 
+              name="Enhanced Workorders" 
+              parent="menu_mrpx_main" 
+              action="mrp.mrp_workorder_todo" 
+              sequence="20"/>
+
+    <!-- Add shortcut to Manufacturing menu -->
+    <menuitem id="menu_mrpx_assignment_shortcut" 
+              name="Quick Assignment" 
+              parent="mrp.menu_mrp_workorder_todo" 
+              action="action_mrp_workorder_assignment" 
+              sequence="5"/>
+
+</odoo>
